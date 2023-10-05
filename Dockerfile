@@ -5,7 +5,10 @@ COPY service /service
 WORKDIR /service
 EXPOSE 8000
 
-
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
+RUN apk add bash-completion
 RUN pip install -r /temp/requirements.txt
 
 RUN adduser --disabled-password service-user
