@@ -20,7 +20,7 @@ class SubscriptionSerializer(ModelSerializer):
     plan = PlanSerializer()
     client_name = serializers.CharField(source='client.company_name')
     email = serializers.CharField(source='client.user.email')
-    price = serializers.CharField()
+    # price = serializers.CharField()
     service = ServiceSerializer()
     
     class Meta:

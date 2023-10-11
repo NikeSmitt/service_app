@@ -6,7 +6,7 @@ from clients.models import Client
 
 class Service(models.Model):
     name = models.CharField(max_length=50)
-    full_price = models.PositiveIntegerField()
+    full_price = models.DecimalField(max_digits=8, decimal_places=2)
     
     def __str__(self):
         return self.name
@@ -33,6 +33,7 @@ class Subscription(models.Model):
     client = models.ForeignKey(Client, on_delete=models.PROTECT, related_name='subscriptions')
     service = models.ForeignKey(Service, on_delete=models.PROTECT, related_name='subscriptions')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name='subscriptions')
+    price = models.DecimalField(max_digits=8, decimal_places=2)
     
     def __str__(self):
         return f'Subscription "{self.service}" for {self.client}'
