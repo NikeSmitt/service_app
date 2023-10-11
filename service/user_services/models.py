@@ -34,6 +34,7 @@ class Subscription(models.Model):
     service = models.ForeignKey(Service, on_delete=models.PROTECT, related_name='subscriptions')
     plan = models.ForeignKey(Plan, on_delete=models.PROTECT, related_name='subscriptions')
     price = models.DecimalField(max_digits=8, decimal_places=2)
+    comment = models.CharField(max_length=200, default='')
     
     def __str__(self):
         return f'Subscription "{self.service}" for {self.client}'

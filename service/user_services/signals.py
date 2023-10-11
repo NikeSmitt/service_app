@@ -8,7 +8,6 @@ def update_subscription_price(sender, **kwargs):
     checked_fields = ['full_price', 'discount_percent']
     if updated_fields is not None and is_field_accepted(checked_fields, updated_fields):
         instance = kwargs.get('instance')
-        print(f'{instance=}')
         update_price.delay(instance.__class__.__name__, instance.id)
         
         
