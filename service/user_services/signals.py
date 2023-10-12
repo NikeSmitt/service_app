@@ -1,5 +1,8 @@
 import sys
 
+from django.conf import settings
+from django.core.cache import cache
+
 from tasks import update_price
 
 
@@ -16,3 +19,7 @@ def is_field_accepted(checked_fields: [str], updated_fields: [str]):
         if field in checked_fields:
             return True
     return False
+
+
+def reset_total_price_cache(sender, **kwargs):
+    cache.delete(settings.PRICE_CACHE_NAME)

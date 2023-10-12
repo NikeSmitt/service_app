@@ -1,9 +1,8 @@
-import datetime
-import time
-
 from celery import shared_task
 from celery_singleton import Singleton
 from django.apps import apps
+from django.conf import settings
+from django.core.cache import cache
 from django.db import transaction
 
 
@@ -18,15 +17,4 @@ def update_price(instance_name, instance_id):
             subscription.price = (
                     subscription.service.full_price - subscription.service.full_price * subscription.plan.discount_percent / 100)
             subscription.save()
-
-
-# @shared_task(base=Singleton)
-# def set_comment(subscription_id):
-#     from user_services.models import Subscription
-#
-#     subscription = Subscription.objects.get(id=subscription_id)
-#
-#     time.sleep(27)
-#
-#     subscription.comment = str(datetime.datetime.now())
-#     subscription.save()
+    cache.delete(settings.PRICE_CACHE_NAME)
